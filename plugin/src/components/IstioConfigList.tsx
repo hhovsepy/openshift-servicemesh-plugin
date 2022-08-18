@@ -36,7 +36,9 @@ const useIstioTableColumns = (namespace: string) => {
         },
         {
             id: 'configuration',
+            sort: 'validations',
             title: 'Configuration',
+            transforms: [sortable],
         },
     ];
 
@@ -71,7 +73,9 @@ const columns: TableColumn<K8sResourceCommon>[] = [
     },
     {
         id: 'configuration',
+        sort: 'validations',
         title: 'Configuration',
+        transforms: [sortable],
     },
 ];
 
