@@ -13,7 +13,7 @@ const GraphPage = () => {
         getKialiUrl()
             .then(ku => setKialiUrl(ku))
             .catch(e => console.error(e));
-    });
+    }, []);
 
     const iFrameUrl = kialiUrl.baseUrl + '/console/graph/namespaces/?' + kioskUrl() + '&' + kialiUrl.token;
     return (

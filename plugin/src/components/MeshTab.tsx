@@ -22,7 +22,7 @@ const MeshTab = () => {
         getKialiUrl()
             .then(ku => setKialiUrl(ku))
             .catch(e => console.error(e));
-    });
+    }, []);
 
     // This parsing logic maps the location of the user in the OpenShift console to populate the iFrame url to
     // the proper target in the Kiali side

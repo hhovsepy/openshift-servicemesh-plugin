@@ -7,13 +7,13 @@ const OverviewPage = () => {
         token: '',
     });
 
+    initKialiListeners();
+
     React.useEffect(() => {
         getKialiUrl()
             .then(ku => setKialiUrl(ku))
             .catch(e => console.error(e));
-    });
-
-    initKialiListeners();
+    }, []);
 
     const iFrameUrl = kialiUrl.baseUrl + '/console/overview/?' + kioskUrl() + '&' + kialiUrl.token;
     return (
