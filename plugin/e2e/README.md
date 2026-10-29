@@ -16,6 +16,10 @@ Layout:
   The sync rewrites two kiali-isms for this repo: the ESM `import.meta.url` dirname helper becomes
   the `__dirname` CJS global (the plugin package is CommonJS), and `utils/demoApps.ts` points at
   `_output/kiali/hack/istio` (kiali hack scripts land there via `hack/download-hack-scripts.sh`).
+  The sync also replaces `utils/kialiUrl.ts` with a re-export of the OSSMC-owned URL adapter,
+  which translates standalone `/console/` paths to Console plugin routes, including native
+  Kubernetes resource tabs. Kiali `/api` paths are routed through the Console service proxy
+  at `/api/proxy/plugin/ossmconsole/kiali/api`; existing proxy URLs pass through unchanged.
 - `global-setup/auth.setup.ts` — OSSMC-owned. OpenShift Console OAuth login (htpasswd IdP),
   persists `storageState` for the suite projects. OSSMC always runs on OpenShift; there is no
   anonymous strategy.
@@ -58,3 +62,12 @@ Environment variables:
 | `PLAYWRIGHT_BLOB_NAME`                       | `results`               | Per-suite blob/junit name for chained CI runs                       |
 
 Use `yarn playwright:install` — not `yarn playwright install`.
+
+URL adaptation checks, including a direct API request against a local test server, run without
+a cluster or browser:
+
+```bash
+yarn test:e2e:routes
+```
+
+These checks use a `.unit.ts` suffix so Playwright does not collect them as browser tests.
